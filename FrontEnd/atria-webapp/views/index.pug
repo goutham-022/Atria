@@ -1,0 +1,143 @@
+extends layout
+
+block content
+  .row
+    .col-md-12.mt-5
+      .card.shadow-lg
+        form(action='#' method='POST')
+          .card-header.text-center
+            h3.display-4 Assignment Application
+          .card-body
+            .form-row
+              .form-group.col-4
+                label(for='from_date') From Date
+                input#from_date.form-control.form-control-sm(type='date' name='from_date' required)
+              .form-group.col-4
+                label(for='to_date') To Date
+                input#to_date.form-control.form-control-sm(type='date' name='to_date' required)
+              .form-group.col-4
+                label(for='sensorType') Sensor Type:
+                //- .form-check
+                  input#defaultCheck1.form-check-input(type='checkbox', value='')
+                  label.form-check-label(for='defaultCheck1')
+                    | Default checkbox
+                input#sensorType.form-control.form-control-sm(type='text' name='sensorType' placeholder='Sensor Type' required)
+              //- .form-group.col-6
+              //-   label(for='options') Select Report Type
+              //-   select#options.form-control.form-control-sm(name='options')
+              //-     option(value='') Select Report Type
+              //-     option(value='report') Report
+              //-     option(value='stats') Stats
+          .card-footer.text-right
+            button#generate_report.btn.btn-success.mr-3(type='button')
+              | Show
+            button.btn.btn-danger(type='reset') Reset
+    .col-md-6.mt-5
+      canvas#line_chart
+    .col-md-6.mt-5
+      .row
+        .col-4
+          .card.shadow-lg
+            .card-header.border-left-primary.h-100.py-2
+              .row.no-gutters.align-items-center
+                .col.mr-2
+                  .text-xs.font-weight-bold.text-primary.text-uppercase.mb-1 Minimum
+                  #minimum.h5.mb-0.font-weight-bold.text-gray-800 
+                .col-auto
+                  i.fas.fa-bolt.fa-2x.text-gray-300
+        .col-4
+          .card.shadow-lg
+            .card-header.border-left-primary.h-100.py-2
+              .row.no-gutters.align-items-center
+                .col.mr-2
+                  .text-xs.font-weight-bold.text-primary.text-uppercase.mb-1 Maximum
+                  #maximum.h5.mb-0.font-weight-bold.text-gray-800 
+                .col-auto
+                  i.fas.fa-bolt.fa-2x.text-gray-300
+        .col-4
+          .card.shadow-lg
+            .card-header.border-left-primary.h-100.py-2
+              .row.no-gutters.align-items-center
+                .col.mr-2
+                  .text-xs.font-weight-bold.text-primary.text-uppercase.mb-1 Average
+                  #average.h5.mb-0.font-weight-bold.text-gray-800 
+                .col-auto
+                  i.fas.fa-bolt.fa-2x.text-gray-300
+  script.
+    $('#generate_report').click(function(){
+      var from_date =$('#from_date').val(); 
+      var to_date =$('#to_date').val();
+      var sensorType =$('#sensorType').val();
+      if(from_date && to_date && sensorType){
+        var obj_body = {
+          "from_date": from_date,
+          "to_date": to_date,
+          "sensorType": sensorType
+        }
+        var Obj_string = JSON.stringify(obj_body);
+      $.ajax({
+        url: "http://localhost:5000/api/v1/sensor/get",
+        type: "POST",
+        dataType: "json",
+        data: Obj_string,
+        contentType: "application/json",
+        cache: false,
+        timeout: 5000,
+        success: function (response) {
+          var status = response.response.stats;
+          var reports = response.response.report;
+          var ctx = document.getElementById('line_chart').getContext('2d');
+          var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+              labels: reports.timestamp,
+              datasets: [{
+                label: 'Sensor Status',
+                data: reports.reading,
+                backgroundColor: [
+                  'rgba(255, 99, 132, 0.2)', 
+                  'rgba(54, 162, 235, 0.2)', 
+                  'rgba(255, 206, 86, 0.2)', 
+                  'rgba(75, 192, 192, 0.2)', 
+                  'rgba(153, 102, 255, 0.2)', 
+                  'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                  'rgba(255, 99, 132, 1)', 
+                  'rgba(54, 162, 235, 1)', 
+                  'rgba(255, 206, 86, 1)', 
+                  'rgba(75, 192, 192, 1)', 
+                  'rgba(153, 102, 255, 1)', 
+                  'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+              }]
+            },
+            options: {
+              scales: {
+                yAxes: [{
+                  ticks: {
+                    beginAtZero: true
+                  }
+                }]
+              }
+            }
+          });
+          $('#minimum').html(status.minimum);
+          $('#maximum').html(status.maximum);
+          $('#average').html(status.average);
+        },
+        error: function (error) {
+          console.log(error.responseJSON);
+          if(error.responseJSON.status_code == 400){
+            alert(error.responseJSON.message);
+            location.reload();
+          }
+          }
+        });
+      } else {
+        alert("All fields requried");
+        location.reload();
+      }      
+    });
+
