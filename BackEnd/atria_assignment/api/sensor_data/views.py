@@ -71,35 +71,35 @@ class SensorDataGet(Resource):
 
         Request Schema:
 
-        {
-            "from_date": "2020-08-01",
-            "to_date": "2020-08-3",
-            "sensorType": "temperature"
-        }
+            {
+                "from_date": "2020-08-01",
+                "to_date": "2020-08-3",
+                "sensorType": "temperature"
+            }
 
         Response Schema *JSON*:
 
-        {
-            "message": "Sensor Data",
-            "response": {
-                "report": {
-                    "reading": [
-                        26.0,
-                        30.0
-                    ],
-                    "timestamp": [
-                        "01-08-2020",
-                        "02-08-2020"
-                    ]
+            {
+                "message": "Sensor Data",
+                "response": {
+                    "report": {
+                        "reading": [
+                            26.0,
+                            30.0
+                        ],
+                        "timestamp": [
+                            "01-08-2020",
+                            "02-08-2020"
+                        ]
+                    },
+                    "stats": {
+                        "maximum": 30.0,
+                        "minimum": 26.0,
+                        "average": 28.0
+                    }
                 },
-                "stats": {
-                    "maximum": 30.0,
-                    "minimum": 26.0,
-                    "average": 28.0
-                }
-            },
-            "status_code": 200
-        }
+                "status_code": 200
+            }
 
         """
         try:
@@ -117,48 +117,76 @@ class SensorDataGet(Resource):
             logs.logger.error(e)
 
 
-# @api.route('/getall')
-# class SensorDataGet(Resource):
-#     @api.doc("get_all_sensor_data", responses={
-#         200: 'Success',
-#         201: 'Created',
-#         400: 'Missing parameter',
-#         403: 'Insufficient permissions',
-#         500: 'Internal Server Error',
-#     })
-#     def post(self):
-#         """
-#
-#         Get All Sensor Data from DataBase
-#
-#         **GET** method
-#
-#         Request Schema:
-#
-#         Response Schema *JSON*:
-#
-#         {
-#             "message": "Sensor Data",
-#             "response": [
-#                 {
-#                     "reading": 26.0,
-#                     "timestamp": "01-12-2017"
-#                 },
-#                 {
-#                     "reading": 30.0,
-#                     "timestamp": "02-12-2017"
-#                 },
-#                 {
-#                     "reading": 35.0,
-#                     "timestamp": "14-12-2017"
-#                 }
-#             ],
-#             "status_code": 200
-#         }
-#
-#         """
-#         try:
-#             response = SensorDataController.get_all_sensor_data()
-#             return response
-#         except Exception as e:
-#             logs.logger.error(e)
+@api.route('/getall')
+class SensorDataGet(Resource):
+    @api.doc("get_all_sensor_data", responses={
+        200: 'Success',
+        201: 'Created',
+        400: 'Missing parameter',
+        403: 'Insufficient permissions',
+        500: 'Internal Server Error',
+    })
+    def post(self):
+        """
+
+        Get All Sensor Data from DataBase
+
+        **GET** method
+
+        Request Schema:
+
+        Response Schema *JSON*:
+
+            {
+                "message": "Sensor Data",
+                "response": [
+                    {
+                        "sensorType": "Temperature",
+                        "report": {
+                            "reading": [
+                                26.0,
+                                27.0,
+                                29.0,......
+                            ],
+                            "timestamp": [
+                                "20-08-2020",
+                                "20-08-2020",
+                                "20-08-2020",....
+                            ]
+                        },
+                        "stats": {
+                            "maximum": 35.0,
+                            "minimum": 12.0,
+                            "average": 23.53
+                        }
+                    },
+                    {
+                        "sensorType": "Weather",
+                        "report": {
+                            "reading": [
+                                21.0,
+                                12.0,
+                                27.0,.....
+                            ],
+                            "timestamp": [
+                                "16-08-2020",
+                                "17-08-2020",
+                                "18-08-2020",....
+                            ]
+                        },
+                        "stats": {
+                            "maximum": 33.0,
+                            "minimum": 12.0,
+                            "average": 20.46
+                        }
+                    }
+                ],
+                "status_code": 200
+            }
+
+        """
+        try:
+            response = SensorDataController.get_all_sensor_data()
+            return response
+        except Exception as e:
+            logs.logger.error(e)
