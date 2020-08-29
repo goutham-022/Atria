@@ -8,7 +8,7 @@ A simple web application developed wih [flask-restx](https://github.com/python-r
 * MongoDb 3.6
 * NodeJS 12.*
 
-## Installation
+## installation
 
 Clone git respository
 
@@ -42,7 +42,7 @@ python atria_assignment.py
 
 **Make sure `mongod.exe` is running in background**
 
-Move `sensor` folder under `db` to `C:\Mongodb\bin\dump`(where mongodb is installed), below command will generate the data
+Move `sensor` folder under `db` to `C:\Mongodb\bin\dump`(where mongodb is installed), followin command would generate the data
 
 ```
 # code block
@@ -60,9 +60,14 @@ nodemon
 
 Go to the url [http://localhost:3000/](http://localhost:3000/)
 
-![Image](https://github.com/goutham-022/Atria/tree/master/images/index.jpg)
+![Image](https://res.cloudinary.com/djntak6lv/image/upload/v1598674462/index2_xycjfy.png)
+
 
 Select **From Date** as **01-08-2020**, **To Date** as **15-08-2020** and **Sensor Type** as **Temperature**
 
+![Image](https://res.cloudinary.com/djntak6lv/image/upload/v1598674745/temperature2_tjk2t5.png)
+
 
 Select **From Date** as **01-08-2020**, **To Date** as **30-08-2020** and **Sensor Type** as **Weather**
+
+![Image](https://res.cloudinary.com/djntak6lv/image/upload/v1598674623/weather2_een04s.png)
