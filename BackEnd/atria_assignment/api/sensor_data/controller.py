@@ -78,57 +78,57 @@ class SensorData(object):
         except Exception as e:
             logs.logger.error(e)
 
-    @staticmethod
-    def get_all_sensor_data():
-        try:
-            data_list = []
-            resp = []
-            sensor_data = SensorModel.objects()
-            for data in sensor_data:
-                resp.append({
-                    "reading": data.reading,
-                    "timestamp": data.timestamp.strftime("%d-%m-%Y")
-                })
-            for data in sensor_data:
-                data_list.append(data.reading)
-            average = round(sum(data_list) / len(data_list), 2)
-            minimum = min(data_list)
-            maximum = max(data_list)
-            resp.append({
-                "maximum": maximum,
-                "minimum": minimum,
-                "average": average
-            })
-            sensor_report = [
-                {
-                    "reading": 26.0}, {
-                    "reading": 28.0}, {
-                    "reading": 29.0}, {
-                    "reading": 30.0}, {
-                    "reading": 31.0
-                },
-                {
-                    "timestamp": "20-08-2020"}, {
-                    "timestamp": "21-08-2020"}, {
-                    "timestamp": "22-08-2020"}, {
-                    "timestamp": "23-08-2020"}, {
-                    "timestamp": "24-08-2020"
-                }
-            ]
-            return {
-                       "message": "Sensor Data",
-                       "response": {
-                           "sensorType": "AC",
-                           "report": {
-                               "reading": [26.0, 28.0, 29.0, 30.0, 31.0, 26.0, 28.0, 29.0, 30.0, 31.0, 26.0, 28.0, 29.0, 30.0, 31.0],
-                               "timestamp": ["20-08-2020", "21-08-2020", "22-08-2020", "24-08-2020", "25-08-2020", "20-08-2020", "21-08-2020", "22-08-2020", "24-08-2020", "25-08-2020", "20-08-2020", "21-08-2020", "22-08-2020", "24-08-2020", "25-08-2020"]
-                           },
-                           "stats": {
-                               "maximum": 35.0,
-                               "minimum": 26.0,
-                               "average": 28.83
-                           }
-                       }
-                   }, 200
-        except Exception as e:
-            logs.logger.error(e)
+    # @staticmethod
+    # def get_all_sensor_data():
+    #     try:
+    #         data_list = []
+    #         resp = []
+    #         sensor_data = SensorModel.objects()
+    #         for data in sensor_data:
+    #             resp.append({
+    #                 "reading": data.reading,
+    #                 "timestamp": data.timestamp.strftime("%d-%m-%Y")
+    #             })
+    #         for data in sensor_data:
+    #             data_list.append(data.reading)
+    #         average = round(sum(data_list) / len(data_list), 2)
+    #         minimum = min(data_list)
+    #         maximum = max(data_list)
+    #         resp.append({
+    #             "maximum": maximum,
+    #             "minimum": minimum,
+    #             "average": average
+    #         })
+    #         sensor_report = [
+    #             {
+    #                 "reading": 26.0}, {
+    #                 "reading": 28.0}, {
+    #                 "reading": 29.0}, {
+    #                 "reading": 30.0}, {
+    #                 "reading": 31.0
+    #             },
+    #             {
+    #                 "timestamp": "20-08-2020"}, {
+    #                 "timestamp": "21-08-2020"}, {
+    #                 "timestamp": "22-08-2020"}, {
+    #                 "timestamp": "23-08-2020"}, {
+    #                 "timestamp": "24-08-2020"
+    #             }
+    #         ]
+    #         return {
+    #                    "message": "Sensor Data",
+    #                    "response": {
+    #                        "sensorType": "AC",
+    #                        "report": {
+    #                            "reading": [26.0, 28.0, 29.0, 30.0, 31.0, 26.0, 28.0, 29.0, 30.0, 31.0, 26.0, 28.0, 29.0, 30.0, 31.0],
+    #                            "timestamp": ["20-08-2020", "21-08-2020", "22-08-2020", "24-08-2020", "25-08-2020", "20-08-2020", "21-08-2020", "22-08-2020", "24-08-2020", "25-08-2020", "20-08-2020", "21-08-2020", "22-08-2020", "24-08-2020", "25-08-2020"]
+    #                        },
+    #                        "stats": {
+    #                            "maximum": 35.0,
+    #                            "minimum": 26.0,
+    #                            "average": 28.83
+    #                        }
+    #                    }
+    #                }, 200
+    #     except Exception as e:
+    #         logs.logger.error(e)

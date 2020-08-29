@@ -117,48 +117,48 @@ class SensorDataGet(Resource):
             logs.logger.error(e)
 
 
-@api.route('/getall')
-class SensorDataGet(Resource):
-    @api.doc("get_all_sensor_data", responses={
-        200: 'Success',
-        201: 'Created',
-        400: 'Missing parameter',
-        403: 'Insufficient permissions',
-        500: 'Internal Server Error',
-    })
-    def post(self):
-        """
-
-        Get All Sensor Data from DataBase
-
-        **GET** method
-
-        Request Schema:
-
-        Response Schema *JSON*:
-
-        {
-            "message": "Sensor Data",
-            "response": [
-                {
-                    "reading": 26.0,
-                    "timestamp": "01-12-2017"
-                },
-                {
-                    "reading": 30.0,
-                    "timestamp": "02-12-2017"
-                },
-                {
-                    "reading": 35.0,
-                    "timestamp": "14-12-2017"
-                }
-            ],
-            "status_code": 200
-        }
-
-        """
-        try:
-            response = SensorDataController.get_all_sensor_data()
-            return response
-        except Exception as e:
-            logs.logger.error(e)
+# @api.route('/getall')
+# class SensorDataGet(Resource):
+#     @api.doc("get_all_sensor_data", responses={
+#         200: 'Success',
+#         201: 'Created',
+#         400: 'Missing parameter',
+#         403: 'Insufficient permissions',
+#         500: 'Internal Server Error',
+#     })
+#     def post(self):
+#         """
+#
+#         Get All Sensor Data from DataBase
+#
+#         **GET** method
+#
+#         Request Schema:
+#
+#         Response Schema *JSON*:
+#
+#         {
+#             "message": "Sensor Data",
+#             "response": [
+#                 {
+#                     "reading": 26.0,
+#                     "timestamp": "01-12-2017"
+#                 },
+#                 {
+#                     "reading": 30.0,
+#                     "timestamp": "02-12-2017"
+#                 },
+#                 {
+#                     "reading": 35.0,
+#                     "timestamp": "14-12-2017"
+#                 }
+#             ],
+#             "status_code": 200
+#         }
+#
+#         """
+#         try:
+#             response = SensorDataController.get_all_sensor_data()
+#             return response
+#         except Exception as e:
+#             logs.logger.error(e)

@@ -8,7 +8,7 @@ A simple web application developed wih [flask-restx](https://github.com/python-r
 * MongoDb 3.6
 * NodeJS 12.*
 
-## installation
+## Installation
 
 Clone git respository
 
@@ -60,7 +60,7 @@ nodemon
 
 Go to the url [http://localhost:3000/](http://localhost:3000/)
 
-
+![Image](https://github.com/goutham-022/Atria/tree/master/images/index.jpg)
 
 Select **From Date** as **01-08-2020**, **To Date** as **15-08-2020** and **Sensor Type** as **Temperature**
 
